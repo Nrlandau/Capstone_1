@@ -35,7 +35,7 @@ namespace Capstone1
         }
         static void Main(string[] args)
         {
-            System.Console.WriteLine(WordToPigLatin("Hello"));
+            System.Console.WriteLine(WordToPigLatin("hello"));
         }
     }
 }
