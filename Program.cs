@@ -2,11 +2,12 @@
 
 namespace Capstone1
 {
+    enum CaseName{LOWER,UPPER,TITLE}
     class Program
     {
         static string WordToPigLatin(string inWord)
         {
-            int wordCase;
+            CaseName wordCase;
             int i;
             wordCase = getCase(inWord);
             for(i = 0; i < inWord.Length && !IsVowel(inWord[i]); i++);
@@ -25,12 +26,25 @@ namespace Capstone1
                 return false;
             }
         }
-        static int getCase(string inWord)
+        static CaseName getCase(string inWord)
         {
-            return 0;
+            if(inWord.Length == 1)
+            {
+                
+            }
+            return CaseName.LOWER;
         }
-        static string setCase(string inWord, int wordCase)
+        static string setCase(string inWord, CaseName wordCase)
         {
+            switch(wordCase)
+            {
+                case CaseName.UPPER:
+                    return inWord.ToUpper();
+                case CaseName.LOWER:
+                    return inWord.ToLower();
+                case CaseName.TITLE:
+                    return inWord.Substring(0,1) + inWord.Substring(1).ToLower();
+            }
             return inWord;
         }
         static void Main(string[] args)
