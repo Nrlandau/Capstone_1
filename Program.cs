@@ -28,11 +28,11 @@ namespace Capstone1
         }
         static CaseName getCase(string inWord)
         {
-            if(inWord.Length == 1)
-            {
-                
-            }
-            return CaseName.LOWER;
+            if(inWord == inWord.ToUpper())
+                return CaseName.UPPER;
+            if(inWord == inWord.ToLower())
+                return CaseName.LOWER;
+            return CaseName.TITLE;
         }
         static string setCase(string inWord, CaseName wordCase)
         {
