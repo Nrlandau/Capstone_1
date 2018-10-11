@@ -43,13 +43,15 @@ namespace Capstone1
                 case CaseName.LOWER:
                     return inWord.ToLower();
                 case CaseName.TITLE:
-                    return inWord.Substring(0,1) + inWord.Substring(1).ToLower();
+                    return inWord.Substring(0,1).ToUpper() + inWord.Substring(1).ToLower();
             }
             return inWord;
         }
         static void Main(string[] args)
         {
             System.Console.WriteLine(WordToPigLatin("hello"));
+            System.Console.WriteLine(WordToPigLatin("Hello"));
+            System.Console.WriteLine(WordToPigLatin("HELLO"));
         }
     }
 }
