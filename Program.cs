@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace Capstone1
 {
@@ -10,7 +11,9 @@ namespace Capstone1
             int currentLength = 0;
             int i;
             string LatinLine = "";
-            for(i =0; i <line.Length; i++)
+            string translateWord;
+            line += " ";
+            for(i =0; i <line.Length ; i++)
             {
                 if(line[i] == ' ')
                 {
@@ -20,7 +23,11 @@ namespace Capstone1
                         currentLength = 0;
                         continue;
                     }
-                    LatinLine += WordToPigLatin(line.Substring(i - currentLength,currentLength))+ " ";
+                    translateWord = line.Substring(i - currentLength,currentLength);
+                    if(CanTraslate(translateWord))
+                        LatinLine += WordToPigLatin(translateWord)+ " ";
+                    else
+                        LatinLine += translateWord + " ";
                     currentLength = 0;
                 }
                 else
@@ -51,11 +58,11 @@ namespace Capstone1
         }
         static CaseName getCase(string inWord)
         {
-            if(inWord == inWord.ToUpper())
+            if(inWord == inWord.ToUpper()) //UPPERCASE
                 return CaseName.UPPER;
-            if(inWord == inWord.ToLower())
+            if(inWord == inWord.ToLower()) //lowercase
                 return CaseName.LOWER;
-            return CaseName.TITLE;
+            return CaseName.TITLE;         //Titlecase
         }
         static string setCase(string inWord, CaseName wordCase)
         {
@@ -70,12 +77,18 @@ namespace Capstone1
             }
             return inWord;
         }
+        static bool CanTraslate(string inWord)
+        {
+            if(Regex.IsMatch(inWord, "[^a-zA-Z,.?;:'!-]"))
+                return false;
+            return true;
+        }
         static void Main(string[] args)
         {
             System.Console.WriteLine(WordToPigLatin("hello"));
             System.Console.WriteLine(WordToPigLatin("Hello"));
             System.Console.WriteLine(WordToPigLatin("HELLO"));
-            System.Console.WriteLine(LineToPigLatin("Elllo ASDF  asdf  asdfff"));
+            System.Console.WriteLine(LineToPigLatin("Elllo ASDF  asdf  asd$fff"));
         }
     }
 }
