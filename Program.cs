@@ -6,7 +6,12 @@ namespace Capstone1
     {
         static string WordToPigLatin(string inWord)
         {
-
+            int wordCase;
+            int i;
+            wordCase = getCase(inWord);
+            for(i = 0; i < inWord.Length && !IsVowel(inWord[i]); i++);
+            if(i ==0)
+                return inWord + setCase("way",wordCase);
             return "";
         }
         static bool IsVowel(char letter)
@@ -19,6 +24,14 @@ namespace Capstone1
                 default:
                 return false;
             }
+        }
+        static int getCase(string inWord)
+        {
+            return 0;
+        }
+        static string setCase(string inWord, int wordCase)
+        {
+            return inWord;
         }
         static void Main(string[] args)
         {
