@@ -11,8 +11,6 @@ namespace Capstone1
             int currentLength = 0;
             int i;
             string LatinLine = "";
-            string translateWord;
-            line += " ";
             for(i =0; i <line.Length ; i++)
             {
                 if(line[i] == ' ')
@@ -23,16 +21,15 @@ namespace Capstone1
                         currentLength = 0;
                         continue;
                     }
-                    translateWord = line.Substring(i - currentLength,currentLength);
-                    if(CanTranslate(translateWord))
-                        LatinLine += WordToPigLatin(translateWord)+ " ";
-                    else
-                        LatinLine += translateWord + " ";
+                    LatinLine += Translate(line.Substring(i - currentLength,currentLength)) + " ";
+                    
                     currentLength = 0;
                 }
                 else
                     currentLength++;
             }
+            if(currentLength != 0)
+                LatinLine += Translate(line.Substring(i - currentLength,currentLength));
             return LatinLine;
         }
         static string WordToPigLatin(string inWord)
@@ -44,6 +41,33 @@ namespace Capstone1
             if(i ==0)
                 return  setCase(inWord + "way",wordCase);
             return setCase(inWord.Substring(i) + inWord.Substring(0,i) + "ay",wordCase);
+        }
+        static string Translate(string input)
+        {
+            if(CanTranslate(input))
+            {
+                string LatinLine = "";
+                int start = 0;
+                for(int i =0; i < input.Length; i++)
+                {
+                    if(IsPunc(input[i]))
+                    {
+                        if(start == i)
+                            LatinLine += input[start];
+                        else
+                            LatinLine += WordToPigLatin(input.Substring(start,i-start)) + input[i];
+                        start = i + 1;
+                    }
+                }
+                if(start != input.Length)
+                {
+                    LatinLine += WordToPigLatin(input.Substring(start,input.Length - start));
+                }
+                
+                return LatinLine;
+            }
+            else
+                return input ;
         }
         static bool IsVowel(char letter)
         {
@@ -83,12 +107,23 @@ namespace Capstone1
                 return false;
             return true;
         }
+        static bool IsPunc(char letter)
+        {
+            switch(letter)
+            {
+                case '.': case ',': case '?': case ';':
+                    return true;
+                default:
+                    return false;
+            }
+        }
         static void Main(string[] args)
         {
             System.Console.WriteLine(WordToPigLatin("hello"));
             System.Console.WriteLine(WordToPigLatin("Hello"));
             System.Console.WriteLine(WordToPigLatin("HELLO"));
             System.Console.WriteLine(LineToPigLatin("Elllo ASDF  asdf  asd$fff"));
+            System.Console.WriteLine(LineToPigLatin("ASDFASDF^ AFFA."));
         }
     }
 }
