@@ -24,7 +24,7 @@ namespace Capstone1
                         continue;
                     }
                     translateWord = line.Substring(i - currentLength,currentLength);
-                    if(CanTraslate(translateWord))
+                    if(CanTranslate(translateWord))
                         LatinLine += WordToPigLatin(translateWord)+ " ";
                     else
                         LatinLine += translateWord + " ";
@@ -77,7 +77,7 @@ namespace Capstone1
             }
             return inWord;
         }
-        static bool CanTraslate(string inWord)
+        static bool CanTranslate(string inWord)
         {
             if(Regex.IsMatch(inWord, "[^a-zA-Z,.?;:'!-]"))
                 return false;
