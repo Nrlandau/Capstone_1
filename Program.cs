@@ -11,8 +11,8 @@ namespace Capstone1
             wordCase = getCase(inWord);
             for(i = 0; i < inWord.Length && !IsVowel(inWord[i]); i++);
             if(i ==0)
-                return inWord + setCase("way",wordCase);
-            return "";
+                return  setCase(inWord + "way",wordCase);
+            return setCase(inWord.Substring(i) + inWord.Substring(0,i) + "ay",wordCase);
         }
         static bool IsVowel(char letter)
         {
@@ -35,7 +35,7 @@ namespace Capstone1
         }
         static void Main(string[] args)
         {
-            ;
+            System.Console.WriteLine(WordToPigLatin("Hello"));
         }
     }
 }
