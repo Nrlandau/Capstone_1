@@ -5,6 +5,29 @@ namespace Capstone1
     enum CaseName{LOWER,UPPER,TITLE}
     class Program
     {
+        static string LineToPigLatin(string line)
+        {
+            int currentLength = 0;
+            int i;
+            string LatinLine = "";
+            for(i =0; i <line.Length; i++)
+            {
+                if(line[i] == ' ')
+                {
+                    if(currentLength ==0)
+                    {
+                        LatinLine += " ";
+                        currentLength = 0;
+                        continue;
+                    }
+                    LatinLine += WordToPigLatin(line.Substring(i - currentLength,currentLength))+ " ";
+                    currentLength = 0;
+                }
+                else
+                    currentLength++;
+            }
+            return LatinLine;
+        }
         static string WordToPigLatin(string inWord)
         {
             CaseName wordCase;
@@ -52,6 +75,7 @@ namespace Capstone1
             System.Console.WriteLine(WordToPigLatin("hello"));
             System.Console.WriteLine(WordToPigLatin("Hello"));
             System.Console.WriteLine(WordToPigLatin("HELLO"));
+            System.Console.WriteLine(LineToPigLatin("Elllo ASDF  asdf  asdfff"));
         }
     }
 }
