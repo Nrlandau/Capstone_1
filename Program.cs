@@ -103,15 +103,15 @@ namespace Capstone1
         }
         static bool CanTranslate(string inWord)
         {
-            if(Regex.IsMatch(inWord, "[^a-zA-Z,.?;:'!-]"))
+            if(Regex.IsMatch(inWord, "[^a-zA-Z,.?;:'!-]")) //if it contains a charater that isn't a letter or puctuation.
                 return false;
             return true;
         }
-        static bool IsPunc(char letter)
+        static bool IsPunc(char letter) 
         {
             switch(letter)
             {
-                case '.': case ',': case '?': case ';':
+                case '.': case ',': case '?': case ';': case '!': case ':':
                     return true;
                 default:
                     return false;
@@ -119,11 +119,23 @@ namespace Capstone1
         }
         static void Main(string[] args)
         {
-            System.Console.WriteLine(WordToPigLatin("hello"));
-            System.Console.WriteLine(WordToPigLatin("Hello"));
-            System.Console.WriteLine(WordToPigLatin("HELLO"));
-            System.Console.WriteLine(LineToPigLatin("Elllo ASDF  asdf  asd$fff"));
-            System.Console.WriteLine(LineToPigLatin("ASDFASDF^ AFFA."));
+            string input;
+            string isStop;
+            while (true)
+            {
+                System.Console.WriteLine("Enter a line to be translated:");
+                input = System.Console.ReadLine();
+                System.Console.WriteLine(LineToPigLatin(input));
+                isStop = "";
+                while(!(isStop.Length != 0 && (isStop.ToLower()[0] == 'y' || isStop.ToLower()[0] == 'n')))
+                {
+                    System.Console.WriteLine("Continue?(Y/N)");
+                    isStop = System.Console.ReadLine();
+                }
+                if(isStop.ToLower()[0] == 'n')
+                    break;
+
+            }
         }
     }
 }
