@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+Pig latin translater by Nicholas Landau
+This program will take a line of text and translate it into pig latin.
+rules for pig latin
+    if a word starts with a vowel add 'way' to the end
+    if a word does not, move all constanates to the back of the word and and 'ay'
+This program keeps the case of the word, allows for punctuation, allows contractions, does not translate words with numbers or symbols.
+ */
+
+using System;
 using System.Text.RegularExpressions;
 
 namespace Capstone1
@@ -6,7 +15,7 @@ namespace Capstone1
     enum CaseName{LOWER,UPPER,TITLE}
     class Program
     {
-        static string LineToPigLatin(string line)
+        static string LineToPigLatin(string line)   //seperates each word and sends it to the Translate function.
         {
             int currentLength = 0;
             int i;
@@ -32,7 +41,7 @@ namespace Capstone1
                 LatinLine += Translate(line.Substring(i - currentLength,currentLength));
             return LatinLine;
         }
-        static string WordToPigLatin(string inWord)
+        static string WordToPigLatin(string inWord)//Turns a word into piglatin
         {
             CaseName wordCase;
             int i;
@@ -42,7 +51,7 @@ namespace Capstone1
                 return  setCase(inWord + "way",wordCase);
             return setCase(inWord.Substring(i) + inWord.Substring(0,i) + "ay",wordCase);
         }
-        static string Translate(string input)
+        static string Translate(string input) // test if a word can be traslated and approperitly works with puctiuation 
         {
             if(CanTranslate(input))
             {
@@ -80,7 +89,7 @@ namespace Capstone1
                 return false;
             }
         }
-        static CaseName getCase(string inWord)
+        static CaseName getCase(string inWord) //gets the case of the input word
         {
             if(inWord == inWord.ToUpper()) //UPPERCASE
                 return CaseName.UPPER;
@@ -88,7 +97,7 @@ namespace Capstone1
                 return CaseName.LOWER;
             return CaseName.TITLE;         //Titlecase
         }
-        static string setCase(string inWord, CaseName wordCase)
+        static string setCase(string inWord, CaseName wordCase)  //sets the case for the input word
         {
             switch(wordCase)
             {
@@ -107,7 +116,7 @@ namespace Capstone1
                 return false;
             return true;
         }
-        static bool IsPunc(char letter) 
+        static bool IsPunc(char letter) // a test if a character is puctuation
         {
             switch(letter)
             {
@@ -125,6 +134,8 @@ namespace Capstone1
             {
                 System.Console.WriteLine("Enter a line to be translated:");
                 input = System.Console.ReadLine();
+                if(input.Length == 0)
+                    continue;
                 System.Console.WriteLine(LineToPigLatin(input));
                 isStop = "";
                 while(!(isStop.Length != 0 && (isStop.ToLower()[0] == 'y' || isStop.ToLower()[0] == 'n')))
